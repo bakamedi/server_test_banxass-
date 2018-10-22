@@ -10,6 +10,7 @@ const db            = mongoose();
 
 // archivo de rutas del API
 const auth  = require('./server/routes/auth.route');
+const user  = require('./server/routes/user.route');
 
 // Parser
 app.use(bodyParser.json());
@@ -18,12 +19,19 @@ app.use(cors());
 
 // usar ruta principal de la API-NODEJS
 app.use('/api/auth', auth);
+app.use('/api/user', user);
 
-app.get('*', (req, res)=>{
+app.get('*', (req, res, next)=>{
+    res.header('Content-Type', 'application/json');
     res.header('Access-Control-Allow-Origin', '*');
+    res.header('Accept', 'application/json');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Methods','GET,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
     res.sendfile(path.join(__dirname, 'dist/index.html'));
+    next();
 });
+
 // Seteando PUERTO
 const port = process.env.PORT || '3000';
 app.set('port', port);

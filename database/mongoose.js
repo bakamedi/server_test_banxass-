@@ -15,11 +15,12 @@ const options = {
   family: 4 // Use IPv4, skip trying IPv6
 };
 
-const serverSting = 'mongodb://admin:admin123456@ds135993.mlab.com:35993/appbanaxass';
+//const serverString = 'mongodb://localhost:27017/appbanaxass'
+const serverString = 'mongodb://admin:admin123456@ds135993.mlab.com:35993/appbanaxass';
 
-//Conexion
+//Connection
 module.exports = function(){
-  const db = mongoose.connect(serverSting, options, function(err){
+  const db = mongoose.connect(serverString, options, function(err){
     if (err) {
       console.log("Error de Conexión");
     } else {

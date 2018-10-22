@@ -6,8 +6,13 @@ var UserSchema = new Schema({
     type: String,
     unique: true
   },
-  USER: 	String,
-  PASSWORD: String
+  USER: 	  String,
+  PASSWORD: String,
+  TYPE:     String,
+  ACTIVE: {
+    type: Boolean,
+    default: false
+  }
 });
 
 module.exports = mongoose.model('User', UserSchema);
