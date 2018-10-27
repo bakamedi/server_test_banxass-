@@ -2,11 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var WeighingSchema = new Schema({
-  SESSION:        String,
-  WEIGHT:         Number,
-  CODE_LABEL: 	  String,
-  REGISTER_DATE:  Date,
-  PACKING_CODE:   String
+  WEIGHT:           Number,
+  CODE_PACKAGING:   String,
+  CODE_TAG:         String,
+  REGISTER_DATE:    Date,
 });
 
 module.exports = mongoose.model('Weighing', WeighingSchema);

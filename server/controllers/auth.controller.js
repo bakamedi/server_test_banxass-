@@ -1,12 +1,13 @@
 var User = require('../models/user.model');
+var jwt  = require('../../security/jwt');
 
 exports.LoginUser = function(req, res){
 	try {
-        User.findOne({CLIENT: req.body.CLIENT , 
+        User.findOne({
                       PASSWORD: req.body.PASSWORD,
                       USER: req.body.USER}, '_id CLIENT USER ACTIVE',function(err, result){
 			if(err){
-				return handleError(err);
+				res.status(500).send(err);
 			}else{
 				if(result != undefined && result != [] && result != null){
                     if(result.ACTIVE){
@@ -14,8 +15,12 @@ exports.LoginUser = function(req, res){
                     }else{
                         result.ACTIVE = true;
                         result.save();
-                        console.log(result);
-                        res.json(result);
+                        jwt.CreateToken(result, function(response){    
+                            res.json({
+                                user: result,
+                                token: response
+                            });
+                        });
                     }
 				}
 				if(result == null){
@@ -33,8 +38,6 @@ exports.LoginUser = function(req, res){
 
 exports.logOutUser = function(req, res){
     try {
-        console.log(req.body.CLIENT);
-        console.log(req.body.USER);
         User.findOne({
             CLIENT: req.body.CLIENT , 
             USER: req.body.USER}, 'ACTIVE', function (err, result) {
@@ -61,13 +64,13 @@ exports.logOutUser = function(req, res){
 }
 
 exports.RegisterUser = function(req, res){
-    const usuarioModel = {
+    const userModel = {
         CLIENT:     req.body.CLIENT_REGISTER,
         PASSWORD:   req.body.PASSWORD_REGISTER,
         USER:       req.body.USER_REGISTER,
         TYPE:       req.body.TYPE_REGISTER
     }
-    var newUser = new User(usuarioModel);
+    var newUser = new User(userModel);
     newUser.save(function(err) {
         if (err){
             res.status(500).send('error al registrar usuario');

@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var SessionSchema = new Schema({
   NAME:           String,
   START_DATE:     Date,
-  END_DATE: 	  Date,
+  END_DATE: 	    Date,
   TYPE:           String
 });
 

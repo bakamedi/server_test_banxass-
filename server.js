@@ -11,6 +11,8 @@ const db            = mongoose();
 // archivo de rutas del API
 const auth  = require('./server/routes/auth.route');
 const user  = require('./server/routes/user.route');
+const session = require('./server/routes/session.route');
+const weighing = require('./server/routes/weighing.route');
 
 // Parser
 app.use(bodyParser.json());
@@ -20,6 +22,8 @@ app.use(cors());
 // usar ruta principal de la API-NODEJS
 app.use('/api/auth', auth);
 app.use('/api/user', user);
+app.use('/api/session', session);
+app.use('/api/weighing', weighing);
 
 app.get('*', (req, res, next)=>{
     res.header('Content-Type', 'application/json');
