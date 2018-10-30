@@ -6,17 +6,16 @@ var json = {
 }
 
 exports.VerifyToken = function(token, callback){
-    jwt.verify(token, config.security.ApiKey , function(err, decoded) {
-      if(err){
-        console.log(" hay error");
-        callback(err);
-      }
-      if(decoded){
-        json.decoded = true;
-        //console.log(JSON.stringify(json));
-        callback(json);
-      }
-    });
+  jwt.verify(token, config.security.ApiKey , function(err, decoded) {
+    if(err){
+      console.log(" hay error");
+      callback(err);
+    }
+    if(decoded){
+      json.decoded = true;
+      callback(json);
+    }
+  });
 }
 
 exports.CreateToken = function(resultId, callback){

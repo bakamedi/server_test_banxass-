@@ -14,7 +14,7 @@ const user  = require('./server/routes/user.route');
 const session = require('./server/routes/session.route');
 const weighing = require('./server/routes/weighing.route');
 
-// Parser
+// Lectura del cuerpo de json
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cors());
@@ -25,6 +25,8 @@ app.use('/api/user', user);
 app.use('/api/session', session);
 app.use('/api/weighing', weighing);
 
+
+// permisos para acceder a la ruta
 app.get('*', (req, res, next)=>{
     res.header('Content-Type', 'application/json');
     res.header('Access-Control-Allow-Origin', '*');
